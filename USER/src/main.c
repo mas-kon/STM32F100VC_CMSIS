@@ -8,8 +8,8 @@ extern char buffer_tx[];
 extern char buffer_rx[8];
 
 
-int main(void){
-
+int main(void)
+{
 	RCC_Init();
 
 	SystemCoreClockUpdate();
@@ -25,9 +25,9 @@ int main(void){
 	InitDMAuart1_RX();
 	
 //	GPIOPinSet(GPIOB, PIN2);
-//	GPIOPinReset(GPIOB, PIN1);
+//	GPIOPinSet(GPIOB, PIN1);
 //	GPIOPinSet(GPIOB, PIN0);
-//	GPIOPinReset(GPIOC, PIN5);
+//	GPIOPinSet(GPIOC, PIN5);
 //	GPIOPinSet(GPIOC, PIN4);
 	
 	while (1)
