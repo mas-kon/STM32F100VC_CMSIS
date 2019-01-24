@@ -98,14 +98,19 @@ void InitDMAuart1_RX (void)
 	DMA1_Channel5->CMAR = (uint32_t)&buffer_rx[0];
 	DMA1_Channel5->CNDTR = 8;															// Size buffer
 	
-	DMA1_Channel5->CCR  &= ~DMA_CCR_CIRC;									// Disenable cycle mode
-	DMA1_Channel5->CCR  &= ~DMA_CCR_PINC;									// Disenable increment pointer periphery
+	DMA1_Channel5->CCR &= ~DMA_CCR_CIRC;									// Disenable cycle mode
+	DMA1_Channel5->CCR &= ~DMA_CCR_PINC;									// Disenable increment pointer periphery
 	
-	DMA1_Channel5->CCR  &= ~DMA_CCR_PSIZE;								// Size data periphery - 8 bit
-	DMA1_Channel5->CCR  &= ~DMA_CCR_MSIZE; 								// Size data memory - 8 bit
+	DMA1_Channel5->CCR &= ~DMA_CCR_PSIZE;									// Size data periphery - 8 bit
+	DMA1_Channel5->CCR &= ~DMA_CCR_MSIZE; 								// Size data memory - 8 bit
 	
-	DMA1_Channel5->CCR  &=  ~DMA_CCR_DIR;									// Read: periphery -> memory
-	DMA1_Channel5->CCR  |=  DMA_CCR_MINC;									// Enable increment pointer memory
+	DMA1_Channel5->CCR &=  ~DMA_CCR_DIR;									// Read: periphery -> memory
+	DMA1_Channel5->CCR |=  DMA_CCR_MINC;									// Enable increment pointer memory
+	
+	DMA1_Channel5->CCR |= DMA_CCR_TCIE;										// Transfer complete interrupt enable
+//	DMA1_Channel5->CCR |= DMA_CCR_TEIE;										// Transfer error interrupt enable
+
+	DMA1_Channel5->CCR |= DMA_CCR_EN;
 	
 	NVIC_EnableIRQ (DMA1_Channel5_IRQn);              		// Enable IT DMA channel 5
 
@@ -130,5 +135,5 @@ void DMA1_Channel5_IRQHandler (void)
  // If DMA transfer complite
  if(DMA1->ISR & DMA_ISR_TCIF5) { DMA1->IFCR |= DMA_IFCR_CTCIF5; usart1_interrupt_dma = 1; }
  // If DMA transfer error
- if(DMA1->ISR & DMA_ISR_TEIF5) { DMA1->IFCR |= DMA_IFCR_CTCIF5; GPIOPinSet(GPIOB, PIN2);}
+// if(DMA1->ISR & DMA_ISR_TEIF5) { DMA1->IFCR |= DMA_IFCR_CTCIF5; GPIOPinSet(GPIOB, PIN2);}
 }
