@@ -33,9 +33,9 @@ int main(void){
 	while (1)
 	{
 		
-		if (usart1_interrupt_dma == 1)
+		if (usart1_interrupt == 1)
 		{
-			usart1_interrupt_dma = 0;
+			usart1_interrupt = 0;
 			
 			ReadDMAuart1();
 			
