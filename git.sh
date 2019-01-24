@@ -1,5 +1,5 @@
 git status
-pause
+echo "Press Enter to continue"; read 
 git add .
 git commit -m "COMMIT"
 git push -u origin master
